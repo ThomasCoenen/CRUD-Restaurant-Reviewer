@@ -15,9 +15,9 @@ const UpdateRestaurant = (props) => {
     const fetchData = async () => {
       const response = await RestaurantFinder.get(`/single-restaurant/${id}`);
       console.log('singleRestaurant:',response.data.data);
-      setName(response.data.data.restaurant.name);
-      setLocation(response.data.data.restaurant.location);
-      setPriceRange(response.data.data.restaurant.price_range);
+      setName(response.data.data.restaurant[0].name);
+      setLocation(response.data.data.restaurant[0].location);
+      setPriceRange(response.data.data.restaurant[0].price_range);
     };
     fetchData();
   }, []);

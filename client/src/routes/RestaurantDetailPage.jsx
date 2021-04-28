@@ -17,6 +17,7 @@ const RestaurantDetailPage = () => {
         // console.log('restaurantReviews:',response.data.data.reviews);
         console.log('SelectedRestaurant:',response.data.data);
         setSelectedRestaurant(response.data.data);
+        // setSelectedRestaurant(response.data.data.restaurant[0]);
       } 
       catch (err) {console.log(err);}
     };
