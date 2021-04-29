@@ -28,7 +28,7 @@ const RestaurantDetailPage = () => {
     <div>
       {selectedRestaurant && (
         <>
-          <h1 className="text-center display-1">{selectedRestaurant?.restaurant?.name}</h1>
+          <h1 className="text-center display-1" style={{fontSize:"42px"}}>{selectedRestaurant?.restaurant[0]?.name}</h1>
           <div className="text-center">
             <StarRating rating={selectedRestaurant?.restaurant[0]?.average_rating} />
             {/* <StarRating rating={4.1} /> */}
