@@ -97,7 +97,9 @@ app.get("/api/single-restaurant/:id", async (req, res) => {
   console.log(req.params.id);
   try {
     db.query(
-        `select * from restaurants left join (select restaurant_id, COUNT(*), AVG(rating) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = ${req.params.id}`, 
+        // `select * from restaurants left join (select restaurant_id, COUNT(*), AVG(rating) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = ${req.params.id}`, 
+        "select * from restaurants left join (select restaurant_id, COUNT(*) as num_reviews, AVG(rating) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = ?",
+        [req.params.id],
         function(err1,response1,fields1) {
             if(err1) throw err1;
             console.log("response1:",response1);
@@ -209,7 +211,7 @@ app.put("/api/update-restaurant/:id", async (req, res) => {
     // res.status(200).json({
     //   status: "succes",
     //   data: {
-    //     retaurant: results.rows[0],
+    //     restaurant: results.rows[0],
     //   },
     // });
 
