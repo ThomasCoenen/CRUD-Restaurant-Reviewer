@@ -22,7 +22,7 @@ const RestaurantDetailPage = () => {
       catch (err) {console.log(err);}
     };
     fetchData();
-  }, []);
+  }, [id,setSelectedRestaurant]);
 
   return (
     <div>

@@ -19,7 +19,7 @@ const RestaurantList = (props) => {
       } catch (err) {}
     };
     fetchData();
-  }, []);
+  }, [setRestaurants]);
 
   const handleDelete = async (e, id) => {
     e.stopPropagation(); //so event doesn't get sent to TableRow (tr) element. bc we have event on TR for RestaurantDetail Page

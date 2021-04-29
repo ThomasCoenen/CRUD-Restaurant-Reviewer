@@ -20,7 +20,7 @@ const UpdateRestaurant = (props) => {
       setPriceRange(response.data.data.restaurant[0].price_range);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
