@@ -20,7 +20,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());   //allows to parse body in get requests
 
-// create a connection variable with the required details
 var db = mysql.createConnection({
   host: process.env.DBHOST, // ip address of server running mysql
   user: process.env.DBUSER, // user name to your mysql database
@@ -41,7 +40,6 @@ app.get("/api/get-restaurants", async (req, res) => {
       console.log(response);
       res.status(200).json({
         status: "success",
-        // results: response,
         data: {
           restaurants: response,
         },
@@ -93,7 +91,6 @@ app.get("/api/single-restaurant/:id", async (req, res) => {
                 console.log('response2:',response2);
                 res.status(200).json({
                     status: "success",
-                    // results: response2,
                     data: {
                         restaurant: response1,
                         reviews: response2,
@@ -163,13 +160,11 @@ app.post("/api/create-restaurant", async (req, res) => {
 // Update Restaurants
 app.put("/api/update-restaurant/:id", async (req, res) => {
   try {
-
     db.query("UPDATE restaurants SET name = ?, location = ?, price_range = ? where id = ?",
         [req.body.name, req.body.location, req.body.price_range, req.params.id],
         function(err,response,fields){
             if(err) throw err;
             console.log('createRestaurantRes:',response);
-
             res.status(200).json({
                 status: "succes",
                 data: {
