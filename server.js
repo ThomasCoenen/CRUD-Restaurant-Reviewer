@@ -20,17 +20,48 @@ const app = express();
 app.use(cors());
 app.use(express.json());   //allows to parse body in get requests
 
-var db = mysql.createConnection({
-  host: process.env.DBHOST, // ip address of server running mysql
-  user: process.env.DBUSER, // user name to your mysql database
-  password: process.env.DBPASSWORD, // corresponding password
-  database: process.env.DBDATABASE // use the specified database
-});
+// var db = mysql.createConnection({
+//   host: process.env.DBHOST, // ip address of server running mysql
+//   user: process.env.DBUSER, // user name to your mysql database
+//   password: process.env.DBPASSWORD, // corresponding password
+//   database: process.env.DBDATABASE // use the specified database
+// });
  
-db.connect(function(err) { // make to connection to the database.
-  if (err) throw err;
-  console.log("Connected!");
-});
+// db.connect(function(err) { // make to connection to the database.
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
+
+
+var db_config = {
+    host: process.env.DBHOST, // ip address of server running mysql
+    user: process.env.DBUSER, // user name to your mysql database
+    password: process.env.DBPASSWORD, // corresponding password
+    database: process.env.DBDATABASE // use the specified database
+};
+  
+var db;
+  
+function handleDisconnect() {
+    db = mysql.createConnection(db_config);                                        
+    db.connect(function(err) {             
+      if(err) {                                    
+        console.log('error when connecting to db:', err);
+        setTimeout(handleDisconnect, 2000); 
+      }                  
+      console.log("Connected!");                  
+    });                                     
+                                            
+    db.on('error', function(err) {
+      console.log('db error', err);
+      if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+        handleDisconnect();                         
+      } else {                                      
+        throw err;                                  
+      }
+    });
+}
+handleDisconnect();
 
 // Get all Restaurants
 app.get("/api/get-restaurants", async (req, res) => {
