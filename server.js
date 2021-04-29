@@ -6,7 +6,7 @@
 //git commit -m "make it better"
 //git push heroku master
 
-import express from 'express';
+import express from 'express'
 import cors from 'cors';
 import mysql from 'mysql';
 import path from 'path';
