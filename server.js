@@ -38,13 +38,28 @@ app.get("/api/get-restaurants", async (req, res) => {
     db.query("SELECT * FROM restaurants",function(err,response,fields){
 	  if(err) throw err;
       console.log(response);
-      res.status(200).json({
-        status: "success",
-        data: {
-          restaurants: response,
-        },
-      });
-	});
+
+    db.query(
+        "select * from restaurants left join (select restaurant_id, COUNT(*) as num_reviews, AVG(rating) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id",
+        function(err2,response2,fields2){
+            if(err2) throw err2;
+            console.log("allRestaurants w/ Rating:",response2);
+            res.status(200).json({
+                status: "success",
+                data: {
+                    restaurants: response2,
+                },
+            });
+    });
+
+    //   res.status(200).json({
+    //     status: "success",
+    //     data: {
+    //       restaurants: response,
+    //     },
+    //   });
+    });
+    
 
     // const allRestaurants = await db.query("SELECT * FROM restaurants");
     // console.log("allRestaurants:",allRestaurants)

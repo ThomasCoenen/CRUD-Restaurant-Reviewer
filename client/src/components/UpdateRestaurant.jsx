@@ -56,16 +56,23 @@ const UpdateRestaurant = (props) => {
             type="text"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="price_range">Price Range</label>
-          <input
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.target.value)}
-            id="price_range"
-            className="form-control"
-            type="number"
-          />
+            <select
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+              className="custom-select my-1 mr-sm-2"
+            >
+              <option disabled>Price Range</option>
+              <option value="1">$</option>
+              <option value="2">$$</option>
+              <option value="3">$$$</option>
+              <option value="4">$$$$</option>
+              <option value="5">$$$$$</option>
+            </select>
         </div>
+
         <button type="submit" onClick={handleSubmit} className="btn btn-primary">Submit</button>
       </form>
     </div>

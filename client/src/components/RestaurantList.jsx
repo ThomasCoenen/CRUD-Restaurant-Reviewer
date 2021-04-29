@@ -44,14 +44,14 @@ const RestaurantList = (props) => {
   };
 
   const renderRating = (restaurant) => {  //show count of ratings for individual restaurant
-    if (!restaurant.count) {
+    if (!restaurant.num_reviews) {
       return <span className="text-warning">0 reviews</span>;
     }
     return (
       <>
         {/* <StarRating rating={restaurant.id} /> */}
         <StarRating rating={restaurant.average_rating} />
-        <span className="text-warning ml-1">({restaurant.count})</span>
+        <span className="text-warning ml-1">({restaurant.num_reviews})</span>
       </>
     );
   };
