@@ -6,6 +6,10 @@
 //git commit -m "make it better"
 //git push heroku master
 
+//git add *
+//git commit -m "make it better"
+//git push -f origin master
+
 import express from 'express'
 import cors from 'cors';
 import mysql from 'mysql';
